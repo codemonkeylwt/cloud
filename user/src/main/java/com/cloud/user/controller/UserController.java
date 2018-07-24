@@ -90,15 +90,10 @@ public class UserController {
     @RequestMapping(value = "/checkTel", method = RequestMethod.POST)
     public JsonResult checkTel(String code,String telPhone) {
         JsonResult jsonResult = new JsonResult();
-        if (code==null){
+        if (code==null||!userService.checkCode(telPhone,code)){
             return jsonResult.setSuccess(false).setMsg("验证码错误！");
-        }
-        code = code.toLowerCase();
-        String s = redisUtil.get(telPhone);
-        if (code.equals(s)){
-            return jsonResult;
         }else {
-            return jsonResult.setSuccess(false).setMsg("验证码错误！");
+            return jsonResult;
         }
     }
 }
