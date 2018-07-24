@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper SYSTEM "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cloud.user.dao.UserDao">
+    <!--<cache type="com.baizhi.DataBaseCached.RedisCached">
+        <property name="host" value="192.168.141.129"/>
+        <property name="port" value="6379"/>
+        <property name="ttlSecond" value="60"/>
+    </cache>-->
+    <insert id="insertUser" parameterType="User">
+        INSERT into
+            c_user(userid,username,PASSWORD,salt,realname,sex,telphone,email,LEVEL,status,source,createtime)
+            VALUES (
+            #{userId},
+            #{userName},
+            #{passWord},
+            #{salt},
+            #{realName,},
+            #{sex},
+            #{telPhone},
+            #{email},
+            #{level},
+            #{status},
+            #{source},
+            #{createTime})
+    </insert>
+
+    <select id="queryUserByTel" resultType="User">
+        select userid from c_user where telphone = #{telPhone}
+    </select>
+</mapper>
