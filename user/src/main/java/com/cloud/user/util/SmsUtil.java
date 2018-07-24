@@ -21,9 +21,11 @@ import java.util.Random;
  */
 public class SmsUtil {
     private static Properties properties;
+
     static {
         properties = ExcutePro.getPro("SmsIni.properties");
     }
+
     private final static Logger logger = LoggerFactory.getLogger(SmsUtil.class);
     /**
      * 产品名称:云通信短信API产品,开发者无需替换
@@ -41,6 +43,7 @@ public class SmsUtil {
     private static final String ACCESSKEYSECRET = properties.getProperty("ACCESSKEYSECRET");
     private static final int CODELENGTH = 4;
     private static final String DIC = "qazwsxedcrfvtgbyhnujmikolp123456789QAZWSXEDCRFVTGBYHNUJMIKOLP";
+
     public static JsonResult sendSms(String telphone) throws ClientException {
         JsonResult jsonResult = new JsonResult();
 
@@ -67,7 +70,7 @@ public class SmsUtil {
             stringBuilder.append(DIC.charAt(random.nextInt(DIC.length())));
         }
         //可选:模板中的变量替换JSON串,如模板内容为"亲爱的${name},您的验证码为${code}"时,此处的值为
-        request.setTemplateParam("{\"name\":\"Tom\", \"code\":\""+stringBuilder.toString()+"\"}");
+        request.setTemplateParam("{\"name\":\"Tom\", \"code\":\"" + stringBuilder.toString() + "\"}");
 
         //可选:outId为提供给业务方扩展字段,最终在短信回执消息中将此值带回给调用者
         request.setOutId("yourOutId");

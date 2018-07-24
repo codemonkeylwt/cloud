@@ -27,6 +27,7 @@ public class UserController {
     private final static Logger logger = LoggerFactory.getLogger(UserController.class);
     private final UserService userService;
     private final RedisUtil redisUtil;
+
     @Autowired
     private UserController(UserService userService, RedisUtil redisUtil) {
         this.userService = userService;
@@ -35,6 +36,7 @@ public class UserController {
 
     /**
      * 用户注册接口
+     *
      * @param user 表单传来的新用户
      */
     @RequestMapping(value = "/signUp", method = RequestMethod.POST)
@@ -56,27 +58,28 @@ public class UserController {
 
     /**
      * 发送手机验证码接口
+     *
      * @param telPhone 手机号
      */
     @RequestMapping(value = "/sendSms", method = RequestMethod.POST)
-    public JsonResult sendSms(String telPhone){
+    public JsonResult sendSms(String telPhone) {
         JsonResult jsonResult = new JsonResult();
         try {
             if (userService.checkTelphone(telPhone)) {
                 JsonResult smsResult = SmsUtil.sendSms(telPhone);
-                if(smsResult.isSuccess()){
-                    String code = (String)smsResult.getResult();
+                if (smsResult.isSuccess()) {
+                    String code = (String) smsResult.getResult();
                     code = code.toLowerCase();
-                    redisUtil.set(telPhone,code,300);
+                    redisUtil.set(telPhone, code, 300);
                     logger.info("短信发送成功[{}]", telPhone);
                     return jsonResult;
-                }else {
+                } else {
                     return jsonResult.setSuccess(false).setMsg("短信发送失败!");
                 }
-            }else {
+            } else {
                 return jsonResult.setSuccess(false).setMsg("手机已被注册！");
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             logger.error("短信发送失败[{}]", ExceptionUtil.getExceptionInfo(e));
             return jsonResult.setSuccess(false).setMsg("短信发送失败！");
         }
@@ -84,15 +87,16 @@ public class UserController {
 
     /**
      * 验证手机验证码接口
+     *
      * @param telPhone 手机号
-     * @param code 输入的验证码
+     * @param code     输入的验证码
      */
     @RequestMapping(value = "/checkTel", method = RequestMethod.POST)
-    public JsonResult checkTel(String code,String telPhone) {
+    public JsonResult checkTel(String code, String telPhone) {
         JsonResult jsonResult = new JsonResult();
-        if (code==null||!userService.checkCode(telPhone,code)){
+        if (code == null || !userService.checkCode(telPhone, code)) {
             return jsonResult.setSuccess(false).setMsg("验证码错误！");
-        }else {
+        } else {
             return jsonResult;
         }
     }

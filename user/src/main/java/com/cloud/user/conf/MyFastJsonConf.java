@@ -10,14 +10,14 @@ import org.springframework.context.annotation.Configuration;
 import java.nio.charset.Charset;
 
 /**
- * @author  lwt
+ * @author lwt
  * @date 2018/7/22 11:44
  */
 @Configuration
 public class MyFastJsonConf {
 
     @Bean
-    public HttpMessageConverters fastJsonConf(){
+    public HttpMessageConverters fastJsonConf() {
         FastJsonHttpMessageConverter converter = new FastJsonHttpMessageConverter();
         FastJsonConfig fastJsonConfig = new FastJsonConfig();
         fastJsonConfig.setCharset(Charset.forName("UTF-8"));

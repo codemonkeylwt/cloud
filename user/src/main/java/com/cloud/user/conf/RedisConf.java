@@ -18,7 +18,7 @@ public class RedisConf {
     private int port = 6379;
 
     @Bean
-    public JedisPool getJedisPool(){
-        return new JedisPool(host,port);
+    public JedisPool getJedisPool() {
+        return new JedisPool(host, port);
     }
 }

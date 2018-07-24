@@ -22,38 +22,39 @@ public class RedisUtil {
         this.jedisPool = jedisPool;
     }
 
-    public Jedis getJedis(){
+    public Jedis getJedis() {
         return jedisPool.getResource();
     }
 
-    public void set(String key,Object value){
+    public void set(String key, Object value) {
         Jedis jedis = getJedis();
-        jedis.set(key,JSONObject.toJSONString(value));
-        jedis.close();
-    }
-    public void set(String key,String value){
-        Jedis jedis = getJedis();
-        jedis.set(key,value);
+        jedis.set(key, JSONObject.toJSONString(value));
         jedis.close();
     }
 
-    public void set(Object key,Object value){
+    public void set(String key, String value) {
         Jedis jedis = getJedis();
-        jedis.set(JSONObject.toJSONString(key),JSONObject.toJSONString(value));
+        jedis.set(key, value);
         jedis.close();
     }
 
-    public void set(String key,Object value,int ttl){
+    public void set(Object key, Object value) {
+        Jedis jedis = getJedis();
+        jedis.set(JSONObject.toJSONString(key), JSONObject.toJSONString(value));
+        jedis.close();
+    }
+
+    public void set(String key, Object value, int ttl) {
         Jedis jedis = getJedis();
         jedis.setex(key, ttl, JSONObject.toJSONString(value));
     }
 
-    public void set(String key,String value,int ttl){
+    public void set(String key, String value, int ttl) {
         Jedis jedis = getJedis();
         jedis.setex(key, ttl, value);
     }
 
-    public String get(String key){
+    public String get(String key) {
         Jedis jedis = getJedis();
         String value = jedis.get(key);
         jedis.close();

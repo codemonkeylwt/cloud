@@ -12,7 +12,7 @@ import java.util.Properties;
  * @date 2018/7/24 9:33
  */
 public class ExcutePro {
-    public static Properties getPro(String path){
+    public static Properties getPro(String path) {
         Resource resource = new ClassPathResource(path);
         try {
             return PropertiesLoaderUtils.loadProperties(resource);

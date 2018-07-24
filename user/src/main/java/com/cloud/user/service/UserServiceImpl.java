@@ -20,6 +20,7 @@ import java.util.Date;
 public class UserServiceImpl implements UserService {
     private final UserDao userDao;
     private final RedisUtil redisUtil;
+
     @Autowired
     public UserServiceImpl(UserDao userDao, RedisUtil redisUtil) {
         this.userDao = userDao;
@@ -36,12 +37,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean checkTelphone(String telPhone){
-        return userDao.queryUserByTel(telPhone)==null;
+    public boolean checkTelphone(String telPhone) {
+        return userDao.queryUserByTel(telPhone) == null;
     }
 
     @Override
-    public boolean checkCode(String key, String code){
+    public boolean checkCode(String key, String code) {
         code = code.toLowerCase();
         String s = redisUtil.get(key);
         return code.equals(s);
