@@ -25,6 +25,6 @@
     </insert>
 
     <select id="queryUserByTel" resultType="User">
-        select userid from c_user where telphone = #{telPhone}
+        select * from c_user where telphone = #{telPhone}
     </select>
 </mapper>

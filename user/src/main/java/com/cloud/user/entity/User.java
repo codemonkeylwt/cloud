@@ -35,17 +35,17 @@ public class User implements Serializable {
     private Integer source;
     private Date createTime;
 
-    public User setLevel(Level level) {
+    public User level(Level level) {
         this.level = level.getIndex();
         return this;
     }
 
-    public User setSource(Source source) {
+    public User source(Source source) {
         this.source = source.getIndex();
         return this;
     }
 
-    public User setStatus(Status status) {
+    public User status(Status status) {
         this.status = status.getIndex();
         return this;
     }

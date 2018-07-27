@@ -31,4 +31,12 @@ public interface UserService {
      * @return 验证码是否正确
      */
     boolean checkCode(String key, String code);
+
+    /**
+     * 通过手机号查用户
+     *
+     * @param telphone 手机号
+     * @return 查询到的用户
+     */
+    User getUserByTel(String telphone);
 }

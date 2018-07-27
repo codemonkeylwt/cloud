@@ -10,7 +10,6 @@ import com.aliyuncs.profile.IClientProfile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Properties;
 import java.util.Random;
 
 /**
@@ -20,11 +19,6 @@ import java.util.Random;
  * @date 2018/7/23 15:20
  */
 public class SmsUtil {
-    private static Properties properties;
-
-    static {
-        properties = ExcutePro.getPro("SmsIni.properties");
-    }
 
     private final static Logger logger = LoggerFactory.getLogger(SmsUtil.class);
     /**
@@ -39,10 +33,10 @@ public class SmsUtil {
     /**
      * TODO 此处需要替换成开发者自己的AK(在阿里云访问控制台寻找)
      */
-    private static final String ACCESSKEYID = properties.getProperty("ACCESSKEYID");
-    private static final String ACCESSKEYSECRET = properties.getProperty("ACCESSKEYSECRET");
-    private static final int CODELENGTH = 4;
-    private static final String DIC = "qazwsxedcrfvtgbyhnujmikolp123456789QAZWSXEDCRFVTGBYHNUJMIKOLP";
+    private static final String ACCESSKEYID = ExcuteProperties.getPro().getProperty("ACCESSKEYID");
+    private static final String ACCESSKEYSECRET = ExcuteProperties.getPro().getProperty("ACCESSKEYSECRET");
+    private static final int CODELENGTH = Integer.valueOf(ExcuteProperties.getPro().getProperty("CODELENGTH"));
+    private static final String DIC = ExcuteProperties.getPro().getProperty("DIC");
 
     public static JsonResult sendSms(String telphone) throws ClientException {
         JsonResult jsonResult = new JsonResult();

@@ -29,9 +29,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User signUpUser(User user) {
-        user.setLevel(Level.ONE).setCreateTime(new Date()).setStatus(Status.Normal);
+        user.level(Level.ONE).setCreateTime(new Date()).status(Status.Normal);
         user.setPassWord(UserSignUpUtil.getHexPassword(user.getPassWord())).setSalt(UserSignUpUtil.getSalt());
-        user.setUserId(UserSignUpUtil.getId()).setSource(Source.FriendCircle);
+        user.setUserId(UserSignUpUtil.getId()).source(Source.FriendCircle);
         userDao.insertUser(user);
         return user;
     }
@@ -45,6 +45,15 @@ public class UserServiceImpl implements UserService {
     public boolean checkCode(String key, String code) {
         code = code.toLowerCase();
         String s = redisUtil.get(key);
-        return code.equals(s);
+        boolean equals = code.equals(s);
+        if (equals){
+            redisUtil.del(key);
+        }
+        return equals;
+    }
+
+    @Override
+    public User getUserByTel(String telphone) {
+        return userDao.queryUserByTel(telphone);
     }
 }

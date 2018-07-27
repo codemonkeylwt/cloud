@@ -60,4 +60,8 @@ public class RedisUtil {
         jedis.close();
         return value;
     }
+
+    public void del(String key){
+        getJedis().del(key);
+    }
 }

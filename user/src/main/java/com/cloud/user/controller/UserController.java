@@ -7,6 +7,10 @@ import com.cloud.user.util.ExceptionUtil;
 import com.cloud.user.util.JsonResult;
 import com.cloud.user.util.RedisUtil;
 import com.cloud.user.util.SmsUtil;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +50,7 @@ public class UserController {
         try {
             user2 = userService.signUpUser(user);
             HttpSession session = request.getSession();
-            session.setAttribute("userID", JSONObject.toJSONString(user2));
+            session.setAttribute(user2.getUserId(), JSONObject.toJSONString(user2));
             logger.info("用户注册成功[{}]", user2);
         } catch (Exception e) {
             jsonResult.setSuccess(false).setMsg("系统错误！");
@@ -99,5 +103,38 @@ public class UserController {
         } else {
             return jsonResult;
         }
+    }
+
+    /**
+     * 用户登录接口
+     *
+     * @param username 输入的用户名
+     * @param password 输入的密码
+     */
+    @RequestMapping(value = "/signIn", method = RequestMethod.POST)
+    public JsonResult signIn(String username, String password) {
+        JsonResult jsonResult = new JsonResult();
+        Subject subject = SecurityUtils.getSubject();
+        try {
+            subject.login(new UsernamePasswordToken(username, password));
+            logger.info("[{}]登录成功", username);
+        } catch (AuthenticationException e) {
+            jsonResult.setSuccess(false).setMsg("用户名/密码错误！");
+        }
+        return jsonResult;
+    }
+
+    /**
+     * 用户登出接口
+     *
+     * @param userId 用户id
+     */
+    @RequestMapping(value = "/signOut", method = RequestMethod.POST)
+    public JsonResult signOut(String userId, HttpServletRequest request) {
+        JsonResult jsonResult = new JsonResult();
+        Subject subject = SecurityUtils.getSubject();
+        subject.logout();
+        request.getSession().removeAttribute(userId);
+        return jsonResult;
     }
 }

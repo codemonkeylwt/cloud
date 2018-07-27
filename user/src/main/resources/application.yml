@@ -1,4 +1,3 @@
-
 mybatis:
   mapper-locations: classpath:mapper/*DaoMapper.xml
   type-aliases-package: com.cloud.user.entity
@@ -8,3 +7,5 @@ server:
 spring:
   profiles:
     include: data
+  mvc:
+    static-path-pattern: /static/*

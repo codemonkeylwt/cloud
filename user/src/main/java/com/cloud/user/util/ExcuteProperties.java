@@ -11,14 +11,18 @@ import java.util.Properties;
  * @author lwt
  * @date 2018/7/24 9:33
  */
-public class ExcutePro {
-    public static Properties getPro(String path) {
-        Resource resource = new ClassPathResource(path);
+public class ExcuteProperties {
+    private static Properties properties;
+    static {
+        Resource resource = new ClassPathResource("Ini.properties");
         try {
-            return PropertiesLoaderUtils.loadProperties(resource);
+            properties = PropertiesLoaderUtils.loadProperties(resource);
         } catch (IOException e) {
             e.printStackTrace();
-            return null;
         }
+    }
+
+    public static Properties getPro() {
+        return properties;
     }
 }
