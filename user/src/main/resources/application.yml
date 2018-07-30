@@ -8,4 +8,9 @@ spring:
   profiles:
     include: data
   mvc:
-    static-path-pattern: /static/*
+    static-path-pattern: /static/**
+    view:
+      prefix: /templates
+      suffix: .html
+  thymeleaf:
+    cache: false

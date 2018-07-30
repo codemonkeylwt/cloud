@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="cn"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Hello</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" charset="UTF-8">
+    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <ul id="myTab" class="nav nav-pills ">
+            <li class="active">
+                <a href="#signIn" data-toggle="pill">
+                    登录
+                </a>
+            </li>
+            <li>
+                <a href="#signOn" data-toggle="pill">
+                    注册
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+<div id="myTabContent" class="tab-content">
+    <div class="tab-pane fade in active" id="signIn">
+        <p>登录</p>
+    </div>
+    <div class="tab-pane fade" id="signOn">
+        <p>注册</p>
+    </div>
+</div>
+</body>
+</html>

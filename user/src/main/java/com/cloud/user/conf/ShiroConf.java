@@ -42,7 +42,7 @@ public class ShiroConf {
     @Bean
     public ShiroFilterFactoryBean getShiroFilter(SecurityManager securityManager) {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
-        shiroFilterFactoryBean.setLoginUrl("/user/login.jsp");
+        shiroFilterFactoryBean.setLoginUrl("/static/html/login.html");
         shiroFilterFactoryBean.setSecurityManager(securityManager);
         SecurityUtils.setSecurityManager(securityManager);
         try {
