@@ -137,4 +137,9 @@ public class UserController {
         request.getSession().removeAttribute(userId);
         return jsonResult;
     }
+
+    @RequestMapping("/test")
+    public User test(String telphone){
+        return userService.getUserByTel(telphone);
+    }
 }

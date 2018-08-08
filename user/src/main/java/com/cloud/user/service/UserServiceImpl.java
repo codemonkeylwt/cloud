@@ -46,7 +46,7 @@ public class UserServiceImpl implements UserService {
         code = code.toLowerCase();
         String s = redisUtil.get(key);
         boolean equals = code.equals(s);
-        if (equals){
+        if (equals) {
             redisUtil.del(key);
         }
         return equals;
